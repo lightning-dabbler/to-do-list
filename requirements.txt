@@ -1,4 +1,4 @@
-Flask==0.12.2
+Flask==1.0.2
 mysql-connector-python==8.0.12
-Jinja2==2.9.6
+Jinja2==2.10
 pytz==2018.5

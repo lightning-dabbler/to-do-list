@@ -129,8 +129,6 @@ def home():
         homeLanding=getTodaysInfo()
         if homeLanding:
             homeLanding = json.loads(getTodaysInfo()[0][0])
-#            [0][0].replace('[','').replace(']','').replace("'",'').split('"')
-#            homeLanding = [i for i in homeLanding if len(i)>0]
         result = [i[0] for i in getDates()]
         result = sorted(result,reverse = True,key = lambda x: list(map(int,x.split('/'))))
         result = [convertDate(i) for i in result]
@@ -155,7 +153,7 @@ def home():
                 return redirect('home')
         info = request.form.get('items')
         if info:
-            insertInfo(info)
+            insertInfo(info.replace('\\"','').replace('\\',''))
         return redirect('home')
         
 if __name__=='__main__':
