@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% block head %}
+    <title>To Do List{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/home.css')}}">
+    {% endblock %}
+</head>
+
+<body>
+    <div class="container-fluid" id='conCat'>
+        {% block conCat %}
+        <div class='row'>
+            <div class="col-12">
+                <h1 class='centerTitle'>To Do List</h1>
+            </div>
+        </div>
+        <div class='row'>
+            <div class="col-12">
+                <form class="formReference" method="POST">
+                    <div class="input-group customStyle">
+                        <select name='days' class='custom-select dropdown' type='submit' required>
+                            <option value='today'>{{today}}</option>
+                            {% for i in result %}
+                            <option class='days' value="{{i}}" {% if i==theDate %} selected {% endif %}>{{i}}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="input-group-prepend">
+                            <input class='shiFt' type="submit" value=">"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% endblock %}
+        {% block content %}{% endblock %}
+        {% if homeLanding %}
+        {% for i in homeLanding %}
+        <form method='POST' class='deleteForm'>
+            <div class='row'>
+                <div class="col-4">
+                    <button class="btn btn-danger remove" type="submit">-</button>
+
+                </div>
+                <div class="col-8">
+                    {% if i|length > 50 %}
+                    <textarea class='changeBgc' name='embedded' cols="50" rows="3" readonly>{{i}}</textarea>
+                    {% else %}
+                    <textarea class='changeBgc' name='embedded' cols="{{i|length}}" rows="1" readonly>{{i}}</textarea>
+                    {% endif %}
+                </div>
+            </div>
+        </form>
+        {% endfor %}
+        {% endif %}
+    </div>
+    {% block footer %}
+    <div class='extraSpace'></div>
+    <footer class="footer"><div class='container'><span class='sig'>- &#169; 2018 Osarodion Irabor</span></div></footer>
+    {% endblock %}
+    {% block cool %}
+    <script src="{{url_for('static',filename='js/home.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    {% endblock %}
+</body>
+
+
+</html>

@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+    mydb:
+        container_name: todolistDB
+        image: mysql:8.0.12
+        ports:
+            - "3307:3310"
+        environment:
+            MYSQL_DATABASE: to_do_list
+            MYSQL_PASSWORD: theone
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_USER: dockerman
+        volumes:
+            - ./mydbdata:/var/lib/mysql
+            - ./configMySQL:/etc/mysql/conf.d
+    todolist_webapp:
+        container_name: todolist
+        build: .
+        volumes:
+            - .:/to-do-list
+        depends_on:
+            - mydb
+        ports:
+            - "5001:2001"
+        command: [ "python", "toDoList.py"]

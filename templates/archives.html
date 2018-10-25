@@ -1,0 +1,25 @@
+{% extends 'home.html' %}
+{% block title %} - {{theDate}}{% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block conCat %}{{super()}}{% endblock %}
+{% block content %}
+<div class='row'>
+    <div class="col-12">
+        <h1 class="preSent"> {{theDate}}</h1>
+    </div>
+</div>
+{% for i in old %}
+<div class='row preSent'>
+        <div class='col-5'><span class="pointRight">&#8594;</span></div>
+        <div class="col-7">{% if i|length > 50 %}
+            <textarea class='changeBgc' name='embedded' cols="50" rows="3" disabled readonly>{{i}}</textarea>
+            {% else %}
+            <textarea class='changeBgc' name='embedded' cols="{{i|length}}" rows="1" disabled readonly>{{i}}</textarea>
+            {% endif %}</div>
+    </div>
+{% endfor %}
+{% endblock %}
+{% block cool %}{% endblock %}
+{% block footer %}{{super()}}{% endblock %}
