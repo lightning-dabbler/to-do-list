@@ -147,13 +147,13 @@ def home():
             return render_template('archives.html',theDate=theDate,result=result,old=old,today=today)
         elif removing:
             try:
-                removeInfo(removing)
+                removeInfo(removing.replace('\\','\\\\').replace('\\"','\\\"'))
                 return redirect('home')
             except IndexError as err:
                 return redirect('home')
         info = request.form.get('items')
         if info:
-            insertInfo(info.replace('\\"','').replace('\\',''))
+            insertInfo(info)
         return redirect('home')
         
 if __name__=='__main__':
