@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect,Response
 import mysql.connector
 import pytz
 from datetime import date, datetime
@@ -121,8 +121,8 @@ def convertDate(x):
         
 # Running Route with Methods    
 
-@app.route('/home',methods=['GET','POST'])    
-@app.route("/",methods=['GET','POST'])
+    
+@app.route("/",methods=['GET','POST','DELETE'])
 def home():
     today = 'Today, '+ convertDate(todaysDate())
     if request.method =='GET':
@@ -135,26 +135,25 @@ def home():
         return render_template('home.html',result=result,homeLanding=homeLanding,today=today)
     elif request.method =='POST':
         theDate = request.form.get('days')
-        removing = request.form.get('embedded')
         if theDate and len(theDate.split(' '))<=2:
             try:
                 old = json.loads(getSpecifiedDateInfo(theDate.split(' ')[1])[0][0])
             except IndexError as err:
-                return redirect('home')
+                return redirect('/')
             result = [i[0] for i in getDates()]
             result = sorted(result,reverse = True,key = lambda x: list(map(int,x.split('/'))))
             result = [convertDate(i) for i in result]
             return render_template('archives.html',theDate=theDate,result=result,old=old,today=today)
-        elif removing:
-            try:
-                removeInfo(removing.replace('\\','\\\\').replace('\\"','\\\"'))
-                return redirect('home')
-            except IndexError as err:
-                return redirect('home')
-        info = request.form.get('items')
+        info = request.data
         if info:
             insertInfo(info)
-        return redirect('home')
-        
+            return info
+        return Response(status=204)
+    elif request.method=='DELETE':
+        removing = request.data.decode('utf-8')   
+        removeInfo(removing.replace('\\','\\\\').replace('\\"','\\\"'))      
+        return removing
+    
+    
 if __name__=='__main__':
     app.run(host='0.0.0.0',port=2001,debug=True)

@@ -38,27 +38,22 @@
         {% block content %}{% endblock %}
         {% if homeLanding %}
         {% for i in homeLanding %}
-        <form method='POST' class='deleteForm'>
-            <div class='row'>
-                <div class="col-4">
-                    <button class="btn btn-danger remove" type="submit">-</button>
-
-                </div>
-                <div class="col-8">
-                    {% if i|length > 50 %}
-                    <textarea class='changeBgc' name='embedded' cols="50" rows="3" readonly>{{i}}</textarea>
-                    {% else %}
-                    <textarea class='changeBgc' name='embedded' cols="{{i|length}}" rows="1" readonly>{{i}}</textarea>
-                    {% endif %}
-                </div>
+        <div class='row'>
+            <div class="col-4">
+                <button class="btn btn-danger remove" onclick="ajaxRemove(event)">-</button>
             </div>
-        </form>
+            <div class="col-8">{% if i|length > 50 %}
+                <textarea class='changeBgc' name='embedded' cols="50" rows="3" readonly>{{i}}</textarea>
+                {% else %}<textarea class='changeBgc' name='embedded' cols="{{i|length}}" rows="2" readonly>{{i}}</textarea>{% endif %}</div>
+        </div>
         {% endfor %}
         {% endif %}
     </div>
     {% block footer %}
     <div class='extraSpace'></div>
-    <footer class="footer"><div class='container'><span class='sig'>- &#169; 2018 Osarodion Irabor</span></div></footer>
+    <footer class="footer">
+        <div class='container'><span class='sig'>- &#169; 2018 Osarodion Irabor</span></div>
+    </footer>
     {% endblock %}
     {% block cool %}
     <script src="{{url_for('static',filename='js/home.js')}}"></script>
