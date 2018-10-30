@@ -98,14 +98,14 @@ function ajaxAdd(url, content) {
                 textArea.setAttribute("name", "embedded");
                 textArea.setAttribute("cols", "50");
                 textArea.setAttribute("rows", "3");
-                textArea.readOnly = true;
+                textArea.disabled = true;
                 textArea.innerHTML = responseInfo;
             } else {
                 textArea.setAttribute("class", "changeBgc");
                 textArea.setAttribute("name", "embedded");
                 textArea.setAttribute("cols", String(responseInfo.length));
                 textArea.setAttribute("rows", "2");
-                textArea.readOnly = true;
+                textArea.disabled = true;
                 textArea.innerHTML = responseInfo;
             }
 
@@ -144,7 +144,7 @@ function begin() {
     div1.id = "button-addon3"
     button1 = document.createElement('button')
     button1.setAttribute("class", "btn btn-success save");
-
+    button1.setAttribute('type','submit');
     button1.innerHTML = 'Save';
     button2 = document.createElement('button');
     button2.setAttribute("class", "btn btn-danger cancel");
@@ -196,7 +196,7 @@ function begin() {
 
 };
 
-/* Adding Functionality to buttons: plus and minus signs, save, and cancel buttons with recursion */
+/* Adding Functionality to buttons: plus, save, and cancel buttons */
 
 function identifier() {
     var buttons = document.getElementsByTagName('button');

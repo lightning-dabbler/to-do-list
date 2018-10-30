@@ -43,8 +43,8 @@
                 <button class="btn btn-danger remove" onclick="ajaxRemove(event)">-</button>
             </div>
             <div class="col-8">{% if i|length > 50 %}
-                <textarea class='changeBgc' name='embedded' cols="50" rows="3" readonly>{{i}}</textarea>
-                {% else %}<textarea class='changeBgc' name='embedded' cols="{{i|length}}" rows="2" readonly>{{i}}</textarea>{% endif %}</div>
+                <textarea class='changeBgc' name='embedded' cols="50" rows="3" disabled>{{i}}</textarea>
+                {% else %}<textarea class='changeBgc' name='embedded' cols="{{i|length}}" rows="2" disabled>{{i}}</textarea>{% endif %}</div>
         </div>
         {% endfor %}
         {% endif %}
