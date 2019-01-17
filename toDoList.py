@@ -12,9 +12,10 @@ app = Flask(__name__)
 
 def delay():
     try:
-        cnx = mysql.connector.MySQLConnection(user='root',password='root',database='to_do_list',host='mydb',port=3310)
+        cnx = mysql.connector.MySQLConnection(
+            user='root',password='root',database='to_do_list',host='mydb',port=3310)
         cnx.close()
-    except mysql.connector.Error as err:
+    except mysql.connector.Error:
         time.sleep(5)
         delay()
 delay()
@@ -29,7 +30,8 @@ def todaysDate():
 
 def getTodaysInfo():
     today = todaysDate()
-    cnx = mysql.connector.MySQLConnection(user='root',password='root',database='to_do_list',host='mydb',port=3310)
+    cnx = mysql.connector.MySQLConnection(
+        user='root',password='root',database='to_do_list',host='mydb',port=3310)
     c = cnx.cursor()
     c.execute("SELECT information FROM todolist WHERE date = %s;",(today,))
     todaysInfo = c.fetchall()
@@ -41,7 +43,8 @@ def getTodaysInfo():
 
 def getDates():
     today = todaysDate()
-    cnx = mysql.connector.MySQLConnection(user='root',password='root',database='to_do_list',host='mydb',port=3310)
+    cnx = mysql.connector.MySQLConnection(
+        user='root',password='root',database='to_do_list',host='mydb',port=3310)
     c = cnx.cursor()
     c.execute('SELECT date FROM todolist where date!=%s;',(today,))
     dates = c.fetchall()
@@ -52,7 +55,8 @@ def getDates():
 # Fetching a specified info of a date in the dropdown that isn't today
 
 def getSpecifiedDateInfo(d):
-    cnx = mysql.connector.MySQLConnection(user='root',password='root',database='to_do_list',host='mydb',port=3310)
+    cnx = mysql.connector.MySQLConnection(
+        user='root',password='root',database='to_do_list',host='mydb',port=3310)
     c = cnx.cursor()
     c.execute("SELECT information FROM todolist where date=%s;",(d,))
     dateSpecificLandingInfo = c.fetchall()
@@ -64,12 +68,15 @@ def getSpecifiedDateInfo(d):
 
 def insertInfo(info):
     today = todaysDate()
-    cnx = mysql.connector.MySQLConnection(user='root',password='root',database='to_do_list',host='mydb',port=3310)
+    cnx = mysql.connector.MySQLConnection(
+        user='root',password='root',database='to_do_list',host='mydb',port=3310)
     c = cnx.cursor()
     c.execute("SELECT date FROM todolist where date=%s;",(today,))
     observe = c.fetchall()
     if observe:
-        c.execute("UPDATE todolist SET information = JSON_ARRAY_APPEND(information,'$', %s) WHERE date = %s;",(info.strip(),today))
+        c.execute(
+            "UPDATE todolist SET information = JSON_ARRAY_APPEND(information,'$', %s) WHERE date = %s;",
+            (info.strip(),today))
     else:
         c.execute("INSERT INTO todolist VALUES (%s,JSON_ARRAY(%s));",(today,info.strip()))
     cnx.commit()
@@ -80,9 +87,12 @@ def insertInfo(info):
     
 def removeInfo(info):
     today = todaysDate()
-    cnx = mysql.connector.MySQLConnection(user='root',password='root',database='to_do_list',host='mydb',port=3310)
+    cnx = mysql.connector.MySQLConnection(
+        user='root',password='root',database='to_do_list',host='mydb',port=3310)
     c = cnx.cursor()
-    c.execute("UPDATE todolist SET information = JSON_REMOVE(information,replace(JSON_SEARCH(information,'one',%s),%s,'')) where date = %s;",(info.strip(),'"',today))
+    c.execute(
+        "UPDATE todolist SET information = JSON_REMOVE(information,replace(JSON_SEARCH(information,'one',%s),%s,'')) where date = %s;",
+        (info.strip(),'"',today))
     cnx.commit()
     c.execute("SELECT information FROM todolist where date = %s",(today,))
     observe = c.fetchall()[0][0].replace('[','').replace(']','')
@@ -138,7 +148,7 @@ def home():
         if theDate and len(theDate.split(' '))<=2:
             try:
                 old = json.loads(getSpecifiedDateInfo(theDate.split(' ')[1])[0][0])
-            except IndexError as err:
+            except IndexError:
                 return redirect('/')
             result = [i[0] for i in getDates()]
             result = sorted(result,reverse = True,key = lambda x: list(map(int,x.split('/'))))
