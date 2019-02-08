@@ -146,6 +146,7 @@ function begin() {
     button1.setAttribute("class", "btn btn-success save");
     button1.setAttribute('type','submit');
     button1.innerHTML = 'Save';
+    button1.id = '_save'
     button2 = document.createElement('button');
     button2.setAttribute("class", "btn btn-danger cancel");
     button2.setAttribute("type", "button");
@@ -155,6 +156,14 @@ function begin() {
     input1.setAttribute("class", "form-control");
     input1.setAttribute("maxlength", "100");
     input1.setAttribute("name", "items");
+
+    input1.addEventListener('keyup',function(event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            document.getElementById("_save").click();
+        }
+    });
+    
     div2.appendChild(button1);
     div2.appendChild(button2);
     div1.appendChild(div2);

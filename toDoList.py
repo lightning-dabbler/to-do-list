@@ -18,7 +18,7 @@ def delay():
     except mysql.connector.Error:
         time.sleep(5)
         delay()
-delay()
+
 
 # Fetching Today's Information from database 
 
@@ -135,12 +135,15 @@ def convertDate(x):
 @app.route("/",methods=['GET','POST','DELETE'])
 def home():
     today = 'Today, '+ convertDate(todaysDate())
+    format_date = lambda t: (t[2],t[0],t[1])
     if request.method =='GET':
         homeLanding=getTodaysInfo()
         if homeLanding:
             homeLanding = json.loads(getTodaysInfo()[0][0])
         result = [i[0] for i in getDates()]
-        result = sorted(result,reverse = True,key = lambda x: list(map(int,x.split('/'))))
+        
+        result = sorted(result,reverse = True,key = lambda x: datetime(*format_date(tuple(
+            map(int,x.split('/'))))))
         result = [convertDate(i) for i in result]
         return render_template('home.html',result=result,homeLanding=homeLanding,today=today)
     elif request.method =='POST':
@@ -151,7 +154,8 @@ def home():
             except IndexError:
                 return redirect('/')
             result = [i[0] for i in getDates()]
-            result = sorted(result,reverse = True,key = lambda x: list(map(int,x.split('/'))))
+            result = sorted(result,reverse = True,key = lambda x: datetime(*format_date(tuple(
+            map(int,x.split('/'))))))
             result = [convertDate(i) for i in result]
             return render_template('archives.html',theDate=theDate,result=result,old=old,today=today)
         info = request.data
@@ -166,4 +170,5 @@ def home():
     
     
 if __name__=='__main__':
+    delay()
     app.run(host='0.0.0.0',port=2001,debug=True)
