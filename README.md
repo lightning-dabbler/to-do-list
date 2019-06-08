@@ -25,8 +25,8 @@ The app will be running on http://localhost:5001/
 Sample Images
 ---------
                                                     Screenshots
-![Historical Page displaying Mobile Compatibility](./screenshots/mobile_compatible_historical_data.png)
-![Landing Page displaying Mobile Compatibility](./screenshots/mobile_compatible_current_data.png)
+![Historical Page displaying Mobile Compatibility](/screenshots/mobile_compatible_historical_data.png)
+![Landing Page displaying Mobile Compatibility](/screenshots/mobile_compatible_current_data.png)
 
 
 Tech 
