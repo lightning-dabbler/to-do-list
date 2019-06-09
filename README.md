@@ -24,8 +24,7 @@ The app will be running on http://localhost:5001/
 
 Sample Images
 ---------
-<img src="/screenshots/mobile_compatible_historical_data.png" alt="Historical Page displaying Mobile Compatibility">
-<img src="/screenshots/mobile_compatible_current_data.png" alt="Landing Page displaying Mobile Compatibility">
+<img src="/screenshots/mobile_compatible_historical_data.png" alt="Historical Page displaying Mobile Compatibility"> <img src="/screenshots/mobile_compatible_current_data.png" alt="Landing Page displaying Mobile Compatibility">
 
 
 Tech 
