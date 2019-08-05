@@ -134,7 +134,8 @@ def convertDate(x):
     
 @app.route("/",methods=['GET','POST','DELETE'])
 def home():
-    today = 'Today, '+ convertDate(todaysDate())
+    current = todaysDate()
+    today = 'Today, '+ convertDate(current)
     format_date = lambda t: (t[2],t[0],t[1])
     if request.method =='GET':
         homeLanding=getTodaysInfo()
@@ -145,7 +146,8 @@ def home():
         result = sorted(result,reverse = True,key = lambda x: datetime(*format_date(tuple(
             map(int,x.split('/'))))))
         result = [convertDate(i) for i in result]
-        return render_template('home.html',result=result,homeLanding=homeLanding,today=today)
+        return render_template('home.html',result=result,homeLanding=homeLanding,
+        today=today,year = current.split('/')[-1])
     elif request.method =='POST':
         theDate = request.form.get('days')
         if theDate and len(theDate.split(' '))<=2:
@@ -157,7 +159,8 @@ def home():
             result = sorted(result,reverse = True,key = lambda x: datetime(*format_date(tuple(
             map(int,x.split('/'))))))
             result = [convertDate(i) for i in result]
-            return render_template('archives.html',theDate=theDate,result=result,old=old,today=today)
+            return render_template('archives.html',theDate=theDate,
+            result=result,old=old,today=today)
         info = request.data
         if info:
             insertInfo(info)

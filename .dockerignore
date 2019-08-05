@@ -1,2 +1,9 @@
 Dockerfile
 docker-compose.yaml
+static
+db
+mydbdata
+templates
+.gitignore
+configMySQL
+toDoList.py
