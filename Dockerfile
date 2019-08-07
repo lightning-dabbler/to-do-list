@@ -4,6 +4,8 @@ EXPOSE 2001
 
 WORKDIR /to-do-list
 
+VOLUME . /to-do-list
+
 COPY Pipfile /to-do-list
 
 RUN pip install --upgrade pip \
