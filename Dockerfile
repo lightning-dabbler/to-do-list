@@ -2,21 +2,20 @@ FROM python:3.6
 
 EXPOSE 2001
 
-WORKDIR /to-do-list
+WORKDIR /build
 
-VOLUME . /to-do-list
+COPY Pipfile Pipfile.* /build/
 
-COPY Pipfile /to-do-list
+COPY entrypoint.sh /build
 
 RUN pip install --upgrade pip \
     && pip install pipenv \
     && pipenv lock --clear
 
-COPY Pipfile.lock /to-do-list
-
 RUN pipenv install --system --deploy --ignore-pipfile --skip-lock --verbose
 
-COPY . .
+RUN chmod +x /build/entrypoint.sh
 
+WORKDIR /to-do-list
 
 # CMD [ "python", "toDoList.py" ]
