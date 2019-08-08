@@ -22,4 +22,4 @@ services:
             - mydb
         ports:
             - "5001:2001"
-        entrypoint: /build/entrypoint.sh
+        entrypoint: /to-do-list/entrypoint.sh
