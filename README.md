@@ -1,6 +1,6 @@
-To-Do-List Wep App
+To-Do List Wep App
 ============
-> A to-do-list web app
+> A to-do list web app
 
 > Built with a Containerized Flask and MySQL stack
 
