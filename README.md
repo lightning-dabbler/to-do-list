@@ -2,7 +2,7 @@ To-Do-List Wep App
 ============
 > A to-do-list web app
 
-> Built with a Dockerized Flask and MySQL stack
+> Built with a Containerized Flask and MySQL stack
 
 Installation
 --------
