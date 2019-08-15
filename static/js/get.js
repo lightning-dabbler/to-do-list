@@ -12,7 +12,6 @@ function ajaxGet() {
   var docURI = document.documentURI
   var endpoint = docURI.split('/')
   var endpoint = endpoint[endpoint.length - 1].replace(/-/g, '/')
-  console.log(endpoint)
   var information = document.querySelector('select').value.split(' ')
   var selectionDate = information[information.length - 1]
   if (endpoint != selectionDate) {
