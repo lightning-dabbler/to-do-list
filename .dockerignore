@@ -10,3 +10,7 @@ app.py
 .vscode
 screenshots
 README.md
+entrypoint.sh
+LICENSE
+_config.yml
+
