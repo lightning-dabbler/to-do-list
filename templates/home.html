@@ -21,7 +21,6 @@
         </div>
         <div class='row'>
             <div class="col-12">
-                <form class="formReference" method="POST">
                     <div class="input-group customStyle">
                         <select name='days' class='custom-select dropdown' type='submit' required>
                             <option value='today'>{{today}}</option>
@@ -30,9 +29,8 @@
                             {% endfor %}
                         </select>
                         <div class="input-group-prepend">
-                            <input class='shiFt' type="submit" value=">"></div>
+                            <button class='shiFt' type="button" onclick="ajaxGet()" value=">">></button></div>
                     </div>
-                </form>
             </div>
         </div>
         {% endblock %}
@@ -55,9 +53,11 @@
     <footer class="footer">
         <div class='container'><span class='sig'>&#169; 2018-{{year}} Osarodion Irabor</span></div>
     </footer>
+    <script src="{{url_for('static',filename='js/get.js')}}"></script>
     {% endblock %}
     {% block cool %}
     <script src="{{url_for('static',filename='js/home.js')}}"></script>
+
     {% endblock %}
 </body>
 

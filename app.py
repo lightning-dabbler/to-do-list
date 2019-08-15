@@ -4,9 +4,10 @@ import pytz
 from datetime import date, datetime
 import time 
 import json
-
+import re
 
 app = Flask(__name__) 
+
 
 # delay connector until MySQL database is completely initialized and ready
 
@@ -128,15 +129,19 @@ def convertDate(x):
         day+='Sun'
     day+=' '+x
     return day
-        
-# Running Route with Methods    
 
-    
-@app.route("/",methods=['GET','POST','DELETE'])
-def home():
+def shared_dates():
     current = todaysDate()
     today = 'Today, '+ convertDate(current)
+    year = current.split('/')[-1]
+    return today,year
+
+# Running Route with Methods    
+## Home 
+@app.route("/",methods=['GET','POST','DELETE'])
+def home():
     format_date = lambda t: (t[2],t[0],t[1])
+    today,year =shared_dates()
     if request.method =='GET':
         homeLanding=getTodaysInfo()
         if homeLanding:
@@ -147,20 +152,8 @@ def home():
             map(int,x.split('/'))))))
         result = [convertDate(i) for i in result]
         return render_template('home.html',result=result,homeLanding=homeLanding,
-        today=today,year = current.split('/')[-1])
+        today=today,year = year)
     elif request.method =='POST':
-        theDate = request.form.get('days')
-        if theDate and len(theDate.split(' '))<=2:
-            try:
-                old = json.loads(getSpecifiedDateInfo(theDate.split(' ')[1])[0][0])
-            except IndexError:
-                return redirect('/')
-            result = [i[0] for i in getDates()]
-            result = sorted(result,reverse = True,key = lambda x: datetime(*format_date(tuple(
-            map(int,x.split('/'))))))
-            result = [convertDate(i) for i in result]
-            return render_template('archives.html',theDate=theDate,
-            result=result,old=old,today=today)
         info = request.data
         if info:
             insertInfo(info)
@@ -170,8 +163,28 @@ def home():
         removing = request.data.decode('utf-8')   
         removeInfo(removing.replace('\\','\\\\').replace('\\"','\\\"'))      
         return removing
-    
-    
+
+## History
+@app.route("/<string:_date>",methods=['GET'])
+def history(_date):
+    theDate = _date.replace('-','/')
+    format_date = lambda t: (t[2],t[0],t[1])
+    today,year =shared_dates()
+    regex = re.match(r'\d{1,2}-\d{1,2}-\d{4}',_date)
+    if regex!=None and len(regex.group(0))== len(_date):
+        try:
+            old = json.loads(getSpecifiedDateInfo(theDate)[0][0])
+        except IndexError:           
+            return redirect('/')
+        result = [i[0] for i in getDates()]
+        result = sorted(result,reverse = True,key = lambda x: datetime(*format_date(tuple(
+        map(int,x.split('/'))))))
+        result = [convertDate(i) for i in result]           
+
+        return render_template('archives.html',theDate=theDate,
+        result=result,old=old,today=today,year =year)
+    ## 404
+    return Response(status=404)
 if __name__=='__main__':
     delay()
     app.run(host='0.0.0.0',port=2001,debug=True)

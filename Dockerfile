@@ -14,7 +14,7 @@ RUN pip install --upgrade pip \
 
 RUN pipenv install --system --deploy --ignore-pipfile --skip-lock --verbose
 
-RUN chmod +x /build/entrypoint.sh
+# RUN chmod +x /build/entrypoint.sh
 
 WORKDIR /to-do-list
 

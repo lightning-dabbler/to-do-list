@@ -27,7 +27,7 @@ switch (true) {
         _day = 'Sat';
         break
 };
-today.innerHTML = `Today, ${_day} ${dot.getMonth()+1}/${dot.getDate()}/${dot.getFullYear()}`;
+today.innerHTML = `Today, ${_day} ${dot.getMonth() + 1}/${dot.getDate()}/${dot.getFullYear()}`;
 today.setAttribute('value', today.innerHTML);
 
 /* Disable Return key */
@@ -40,7 +40,13 @@ var deactivateReturnKey = function (event) {
 
 document.onkeydown = deactivateReturnKey;
 
-/* XMLHttpRequest */
+
+/**
+ * 
+ * 
+ *  XMLHttpRequest
+ * 
+ * */
 
 // Remove Item
 
@@ -49,9 +55,9 @@ function ajaxRemove(event) {
 
 
     var conCat = document.getElementById("conCat");
-    
+
     var information = event.target.parentNode.parentNode.children[1].children[0].innerHTML
-    
+
     let deleteItems = document.getElementsByClassName('remove')
     let index = Array.from(deleteItems).indexOf(event.target);
     let removal = deleteItems[index].parentNode.parentNode;
@@ -61,6 +67,7 @@ function ajaxRemove(event) {
     delrequest.setRequestHeader("Content-type", "/x-www-form-urlencoded");
     delrequest.send(information);
 }
+
 
 // Add Item 
 
@@ -127,12 +134,15 @@ function ajaxAdd(url, content) {
 
 
 
-
-
-/* Create an addition of post button and form on landing */
+/**
+ * 
+ *  Create an addition of post button and form on landing 
+ * 
+ **/
 
 function begin() {
     // save and cancel buttons with input embedded in form tag
+
     var div1, div2, button1, button2, input1;
 
     var conCat = document.getElementById("conCat");
@@ -144,7 +154,7 @@ function begin() {
     div1.id = "button-addon3"
     button1 = document.createElement('button')
     button1.setAttribute("class", "btn btn-success save");
-    button1.setAttribute('type','submit');
+    button1.setAttribute('type', 'submit');
     button1.innerHTML = 'Save';
     button1.id = '_save'
     button2 = document.createElement('button');
@@ -157,18 +167,18 @@ function begin() {
     input1.setAttribute("maxlength", "100");
     input1.setAttribute("name", "items");
 
-    input1.addEventListener('keyup',function(event) {
+    input1.addEventListener('keyup', function (event) {
         event.preventDefault();
         if (event.keyCode === 13) {
             document.getElementById("_save").click();
         }
     });
-    
+
     div2.appendChild(button1);
     div2.appendChild(button2);
     div1.appendChild(div2);
     div1.appendChild(input1);
-    
+
     // plus sign Button 
     var rowDiv = document.createElement('DIV');
     rowDiv.setAttribute("class", "row");
@@ -205,7 +215,10 @@ function begin() {
 
 };
 
-/* Adding Functionality to buttons: plus, save, and cancel buttons */
+/**
+ *  Adding Functionality to buttons: plus, save, and cancel buttons 
+ * 
+ **/
 
 function identifier() {
     var buttons = document.getElementsByTagName('button');

@@ -18,7 +18,7 @@ docker will pull these images and it will take some time to have them fully pull
 
 **The images, however, will still stay on your computer unless you want to remove them.** 
 
-The app is ```toDoList.py```
+The app is ```app.py```
 
 The app will be running on http://localhost:5001/
 
@@ -40,7 +40,7 @@ Tech
 
 Version
 --------
-* 1.1.6
+* 1.1.7
 
 Author
 --------
