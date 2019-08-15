@@ -11,18 +11,26 @@ function ajaxGet() {
   var getRequest = new XMLHttpRequest();
   var docURI = document.documentURI
   var endpoint = docURI.split('/')
+  console.log(docURI, endpoint)
   var endpoint = endpoint[endpoint.length - 1].replace(/-/g, '/')
+  console.log(endpoint)
   var information = document.querySelector('select').value.split(' ')
+  console.log(information)
   var selectionDate = information[information.length - 1]
+  console.log(selectionDate)
   if (endpoint != selectionDate) {
-    if (endpoint != '' && information.length != 3) {
+    if (
+      (
+        endpoint != '' && information.length == 3)
+      || (endpoint == '' && information.length != 3) || (
+        endpoint != '' && information.length != 3)
+    ) {
       ajaxGetLogic(getRequest, information)
     }
   }
 }
 
 function ajaxGetLogic(getRequest, information) {
-  var information = document.querySelector('select').value.split(' ')
   if (information.length == 1 || information.length == 3) {
     getRequest.open("GET", '/', true)
     getRequest.onreadystatechange = function () {
