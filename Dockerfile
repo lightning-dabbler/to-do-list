@@ -16,6 +16,4 @@ RUN pipenv install --system --deploy --ignore-pipfile --skip-lock --verbose
 
 # RUN chmod +x /build/entrypoint.sh
 
-WORKDIR /to-do-list
-
 # CMD [ "python", "toDoList.py" ]
