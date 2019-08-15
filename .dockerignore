@@ -6,7 +6,7 @@ mydbdata
 templates
 .gitignore
 configMySQL
-toDoList.py
+app.py
 .vscode
 screenshots
 README.md
