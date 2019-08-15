@@ -6,7 +6,7 @@ WORKDIR /build
 
 COPY Pipfile Pipfile.* /build/
 
-COPY entrypoint.sh /build
+# COPY entrypoint.sh /build
 
 RUN pip install --upgrade pip \
     && pip install pipenv \
