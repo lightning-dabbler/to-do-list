@@ -23,7 +23,7 @@
             <div class="col-12">
                     <div class="input-group customStyle">
                         <select name='days' class='custom-select dropdown' type='submit' required>
-                            <option value='today'>{{today}}</option>
+                            <option value='{{today}}'>{{today}}</option>
                             {% for i in result %}
                             <option class='days' value="{{i}}" {% if i==theDate %} selected {% endif %}>{{i}}</option>
                             {% endfor %}
