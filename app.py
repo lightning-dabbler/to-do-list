@@ -176,13 +176,12 @@ def history(_date):
             old = json.loads(getSpecifiedDateInfo(theDate)[0][0])
         except IndexError:           
             return redirect('/')
-        result = [i[0] for i in getDates() if i[0]!=theDate]
+        result = [i[0] for i in getDates()]
         result = sorted(result,reverse = True,key = lambda x: datetime(*format_date(tuple(
         map(int,x.split('/'))))))
-        result = [convertDate(i) for i in result]  
-        result = [today]+result         
-        return render_template('archives.html',theDate=theDate,
-        result=result,old=old,today=convertDate(theDate),year =year)
+        result = [convertDate(i) for i in result]          
+        return render_template('archives.html',theDate=convertDate(theDate),
+        result=result,old=old,today=today,year =year)
     ## 404
     return Response(status=404)
 if __name__=='__main__':
