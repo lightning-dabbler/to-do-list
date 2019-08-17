@@ -123,6 +123,7 @@ function ajaxAdd(url, content) {
 
             conCat.appendChild(divRow);
             begin();
+            document.querySelector('button[class="btn btn-success add"]').scrollIntoView()
             identifier();
         }
     };

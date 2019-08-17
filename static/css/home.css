@@ -16,6 +16,9 @@ h1.preSent {
 
     font-size: 2.5rem;
 }
+.content_body{
+    min-height: 88vh;
+}
 
 span.pointRight {
     color: #c4010b;
@@ -61,8 +64,9 @@ textarea.changeBgc {
 .footer {
     bottom:0;
     width: 100%;
-    position: fixed;
+    /* position: absolute; */
     background-color: #720b0b;
+    height:2rem;
 }
 
 
