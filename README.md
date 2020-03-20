@@ -48,7 +48,6 @@ Author
 
 
 [flask]: http://flask.pocoo.org/
-[flask-googlemaps]: https://github.com/rochacbruno/Flask-GoogleMaps
 [Docker]: https://docs.docker.com/engine/reference/builder/#usage
 [Docker-Compose]: https://docs.docker.com/compose/compose-file/
 [Jinja2]: http://jinja.pocoo.org/docs/2.10/
